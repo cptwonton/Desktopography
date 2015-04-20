@@ -40,6 +40,7 @@ for links in partial2_links:
 	soup = bs4.BeautifulSoup(r.text)
 	image_links = [links.get('href') for links in soup.find_all('a')]
 	image2_links = [l for l in image_links if l and currentyear in l and len(l.split(r'/'))==4]
+	image3_links = [urljoin(baseurl,l) for l in image2_links]
 	for i in image2_links:
 		name = i[16:]
 		with open(yeardir+name+'.jpg', 'wb') as handle:
@@ -47,7 +48,7 @@ for links in partial2_links:
 			for block in response.iter_content(1024):
 				if not block:
 					break
-			handle.write(block)
+				handle.write(block)
 		
 	
 
